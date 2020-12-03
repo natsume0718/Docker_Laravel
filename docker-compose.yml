@@ -1,0 +1,15 @@
+version: "3.8"
+
+networks:
+  laravel:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "8088:80"
+    volumes:
+      - ./src:/usr/share/nginx/html
+    networks:
+      - laravel
