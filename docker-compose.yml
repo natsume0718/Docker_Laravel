@@ -31,3 +31,12 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     networks:
       - laravel
+  npm:
+    image: node:alpine
+    container_name: npm
+    tty: true
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - laravel
