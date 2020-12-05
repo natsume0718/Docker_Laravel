@@ -1,5 +1,6 @@
 FROM php:7.4-fpm-alpine
 
+# 基本的なあれこれとgd,node,npm,supervisor
 RUN apk upgrade --update && \
     apk --no-cache --update add \
     icu-dev autoconf make g++ gcc bash git zip unzip vim\
@@ -10,8 +11,11 @@ RUN apk upgrade --update && \
     libmcrypt-dev \
     libpng-dev \
     oniguruma-dev \
-    nodejs npm
+    nodejs npm \
+    busybox \
+    supervisor
 
+# php extension
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     bcmath opcache sockets pdo_mysql 
@@ -20,3 +24,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
+
+# cron
+COPY ./schedule/laravel-crontab /var/spool/cron/crontabs/
+RUN cat /var/spool/cron/crontabs/laravel-crontab >> /var/spool/cron/crontabs/root && touch /var/log/cron.log
+CMD busybox crond -f
