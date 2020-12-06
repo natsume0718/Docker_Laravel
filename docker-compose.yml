@@ -48,7 +48,8 @@ services:
       - db
     volumes:
       - ./src:/var/www/html
-      - ./schedule/worker.conf:/etc/supervisor/conf.d/worker.conf
+      - ./jobschedule/worker.conf:/etc/supervisor/conf.d/worker.conf
+      - ./jobschedule/logs:/var/logs/jobschedule
     environment:
       TZ: "Asia/Tokyo"
       DB_HOST: db
