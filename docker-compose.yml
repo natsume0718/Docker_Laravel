@@ -42,13 +42,13 @@ services:
   app:
     container_name: app
     build:
-      context: .
-      dockerfile: ./app/Dockerfile
+      context: ./app
+      dockerfile: Dockerfile
     depends_on:
       - db
     volumes:
       - ./src:/var/www/html:cached
-      - ./jobschedule/logs:/var/logs/jobschedule
+      - ./app/jobschedule/logs:/var/log/jobschedule
     environment:
       TZ: "Asia/Tokyo"
       DB_HOST: db
