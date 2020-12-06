@@ -25,7 +25,10 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
 
+COPY ./app/php.ini /usr/local/etc/php/php.ini
+COPY ./jobschedule/worker.conf /etc/supervisor/conf.d/worker.conf
+
 # cron
-COPY ./schedule/laravel-crontab /var/spool/cron/crontabs/
-RUN cat /var/spool/cron/crontabs/laravel-crontab >> /var/spool/cron/crontabs/root && touch /var/log/cron.log
+COPY ./jobschedule/laravel-crontab /var/spool/cron/crontabs/
+RUN cat /var/spool/cron/crontabs/laravel-crontab >> /var/spool/cron/crontabs/root
 CMD busybox crond -f

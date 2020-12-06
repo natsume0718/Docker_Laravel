@@ -13,7 +13,7 @@ services:
     ports:
       - ${APP_PORT:-80}:80
     volumes:
-      - ./src:/var/www/html
+      - ./src:/var/www/html:cached
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/logs:/var/log/nginx
@@ -47,8 +47,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./src:/var/www/html
-      - ./jobschedule/worker.conf:/etc/supervisor/conf.d/worker.conf
+      - ./src:/var/www/html:cached
       - ./jobschedule/logs:/var/logs/jobschedule
     environment:
       TZ: "Asia/Tokyo"
