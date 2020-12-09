@@ -13,12 +13,15 @@ RUN apk upgrade --update && \
     oniguruma-dev \
     nodejs npm \
     busybox \
-    supervisor
+    supervisor \
+    imagemagick imagemagick-dev imagemagick-c++
 
 # php extension
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
-    bcmath opcache sockets pdo_mysql 
+    bcmath opcache sockets pdo_mysql \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
 
 # install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
