@@ -15,11 +15,14 @@ Laravel を動かす Docker 開発環境
 
 ## 初期設定
 
-`src`内に Laravel プロジェクトを配置する
-
-`.env.example`(docker-compose と同一階層のもの)をコピーし`.env`にする。
+`.env.example`(docker-compose と同一階層のもの)を、`.env`にする。
 
 ポートや DB などをお好みの形にする
+
+## Laravel プロジェクトの配置
+
+`src`内に Laravel プロジェクトを配置する
+
 
 ## 立ち上げ
 
